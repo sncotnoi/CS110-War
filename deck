@@ -28,8 +28,25 @@ public class Deck
             freshDeck();
    }
    /**
-    * Create a new collection of 52 cards, in sorted order
-    */
+   * Creates an empty deck of cards with specified size
+   */
+   public Deck(int cards)
+   {
+      deck = new ArrayList<Card>(cards);
+   } 
+   /**
+   * Give the option of adding a single card to a deck.
+   * Used in junction with the deck size constructor 
+   * in order to create hands instead of full decks
+   * @param Card the card being added to the deck
+   */
+   public void addCard(Card card)
+   {
+      deck.add(card);
+   }   
+   /**
+   * Create a new collection of 52 cards, in sorted order
+   */
    public void freshDeck()
    {
       deck = new ArrayList<Card>();
@@ -88,4 +105,4 @@ public class Deck
    {
       return (deck.size() == 0);
    }
-} 
+}   
