@@ -1,0 +1,114 @@
+/*
+Sierra Cotnoir
+CS 110
+*/
+
+/**
+   Class that represents a single 
+   playing card with rank and suit
+*/   
+public class Card
+{
+   //initialize values for suits and ranks
+   static int SPADES = 14;
+   static int CLUBS = 15;
+   static int HEARTS = 16;
+   static int DIAMONDS = 17;
+   static int ACE = 1;
+   static int JACK = 11;
+   static int QUEEN = 12;
+   static int KING = 13;
+   private int rank;//holds card rank
+   private int suit;//holds card suit
+   
+   /**
+      Consturctor that sets the suit and rank
+      @param suit the card suit
+      @param rank the card rank
+   */   
+   Card (int rank, int suit)
+   {
+      this.suit = suit;
+      this.rank = rank;
+   }
+   
+   /**
+      Method that returns suit as an integer
+   */   
+   public int getSuit()
+   {  
+      return suit;
+   }
+   
+   /**
+      Method that returns rank as an integer
+   */   
+   public int getRank()
+   {
+      return rank;
+   }
+   
+   /**
+      Method that converts suits and ranks to strings
+      and returns the card as a string displaying both
+      rank and suit
+   */   
+   public String toString()
+   {
+      
+      String Suit = "Spades";
+      String str = "Jack";
+      if (suit == SPADES)
+         Suit = "Spades";
+      else if (suit == CLUBS)
+         Suit = "Clubs";
+      else if (suit == HEARTS)
+         Suit = "Hearts";
+      else if (suit == DIAMONDS)
+         Suit = "Diamonds";
+      if (rank == 2)
+         str = "2";
+      else if (rank == 3)
+         str = "3";
+      else if (rank == 4)
+         str = "4";
+      else if (rank == 5)
+         str = "5";
+      else if (rank == 6)
+         str = "6";
+      else if (rank == 7)
+         str = "7";
+      else if (rank == 8)
+         str = "8";
+      else if (rank == 9)
+         str = "9";
+      else if (rank == 10)
+         str = "10";                             
+      else if (rank == JACK)
+         str = "Jack";
+      else if (rank == QUEEN)
+         str = "Queen";
+      else if (rank == KING)
+         str = "King";
+      else if (rank == ACE)
+         str = "Ace";   
+      String CARD = (str + " of " + Suit);
+      return CARD;              
+               
+   }
+   
+   /**
+      Method that compares one card to 
+      another by ranking only
+      @param card the card being compared
+   */   
+   public boolean equals(Card card)
+   {
+      boolean status;
+      if (rank == card.getRank())
+         status = true;
+      else
+         status = false;
+      return status;
+   }
+} 
