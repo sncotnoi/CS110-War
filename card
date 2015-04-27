@@ -111,4 +111,25 @@ public class Card
          status = false;
       return status;
    }
-} 
+   
+   public boolean greaterThan(Card card)
+   {
+      boolean status;
+      if (rank > card.getRank())
+         status = true;
+      else
+         status = false;
+      return status;
+   }
+   
+   public boolean lessThan(Card card)
+   {
+      boolean status;
+      if (rank < card.getRank())
+         status = true;
+      else
+         status = false;
+      return status;
+   }                  
+}                            
+               
