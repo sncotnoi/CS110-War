@@ -1,0 +1,102 @@
+/**
+Sierra Cotnoir
+CS 110
+War Program that uses the
+Deck and Card classes to
+simulate a game of war.
+Game automatically plays through
+until one of the players runs out
+of cards
+*/
+import java.util.ArrayList;
+public class War
+{
+   public static void main(String[] args)
+   {
+      //First two decks are created for player1 and
+      //player two
+      Deck deck = new Deck();
+      deck.shuffle();
+      Deck player1Deck = new Deck(26);
+      Deck player2Deck = new Deck(26);
+      while(!deck.isEmpty())
+      {
+         player1Deck.addCard(deck.dealCard());
+         player2Deck.addCard(deck.dealCard());
+      }
+      //end creation of decks
+      
+      //compare cards
+      while(!player1Deck.isEmpty() && !player2Deck.isEmpty())
+         CardCompare(player1Deck, player2Deck);   
+      //declare winner
+      if(player1Deck.isEmpty())
+         System.out.println("Player 2 Wins!");
+      else if(player2Deck.isEmpty())
+         System.out.println("Player 1 Wins!");      
+   }
+   
+   /**
+   * Method that determines who wins the round
+   * @param p1 the player1 deck
+   * @param p2 the player2 deck
+   */
+   public static void CardCompare(Deck p1, Deck p2)
+   {
+      //deal and display cards for both players
+      Card P1 = p1.dealCard();
+      Card P2 = p2.dealCard();
+      System.out.println("Player 1: " + P1);
+      System.out.println("Player 2: " + P2);
+
+      //if player1 is greater, add the 
+      //cards to their deck
+      if (P1.greaterThan(P2))
+      {
+         p1.addCard(P1);
+         p1.addCard(P2);
+      }  
+      //if player1 is less, add the cards
+      //to player2's deck
+      else if(P1.lessThan(P2))
+      {
+         p2.addCard(P1);
+         p2.addCard(P2);
+      }  
+
+      //if player1 equals player2, draw two
+      //new cards and compare them, then give
+      //all of the drawn cards to the winner
+      if(P1.equals(P2))
+      {
+         Card c1 = P1;
+         Card c2 = P2;
+         P1 = p1.dealCard();
+         P2 = p2.dealCard();
+         if(P1.greaterThan(P2))
+         {
+            p1.addCard(P1);
+            p1.addCard(P2);
+            p1.addCard(c1);
+            p1.addCard(c2);
+         }
+         else
+         {
+            p2.addCard(P1);
+            p2.addCard(P2);
+            p2.addCard(c1);
+            p2.addCard(c2);
+         }      
+      }
+      //shuffle both decks to ensure the
+      //game stays random
+      p1.shuffle();
+      p2.shuffle();
+      //display who is in the lead by showing
+      //how many cards are left for each player
+      System.out.println("Player 1 has " + p1.cardsRemaining() + " cards left");
+      System.out.println("Player 2 has " + p2.cardsRemaining() + " cards left");   
+         
+   }   
+   
+}            
