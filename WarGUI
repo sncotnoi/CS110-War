@@ -1,0 +1,399 @@
+/**
+Sierra Cotnoir
+WarGUI that creates the interface
+for the War card game
+*/
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class WarGUI extends JFrame
+{
+   private JPanel topPanel,gamePanel, scorePanel;//create needed panels
+   private JLabel title;//title of game
+   private JButton p1;//player1 button
+   private JButton p2;//computer button
+   private War game;//instance of War game
+   private JLabel p1Score;//cards left for player1
+   private JLabel p2Score;//cards left for player2
+   private JLabel gStatus;//status if someone has won
+   private JLabel directions;//game directions
+   
+   public WarGUI()
+   {
+      /**
+      Create main layout for the War
+      Card game.  It is dived into a title,
+      player scores, and the cards being 
+      player
+      */
+      game = new War();
+      setLayout(new GridLayout(0,1));
+      topPanel = new JPanel();
+      topPanel.setBackground(Color.green);
+      title = new JLabel("War");
+      title.setFont(new Font("HELVETICA",Font.BOLD,36));
+      topPanel.add(title);
+      scorePanel = new JPanel();
+      gamePanel = new JPanel(new GridLayout(1,0));
+      gamePanel.setBackground(Color.green);
+      p1 = new JButton("Player 1");
+      p1.addActionListener(new ButtonListener());
+      gamePanel.add(p1);
+      p2 = new JButton("Computer");
+      gamePanel.add(p2);
+      String score1 = Integer.toString(War.p1Cards());
+      String score2 = Integer.toString(War.p2Cards());
+      p1Score = new JLabel("Player 1 Cards: " + score1);
+      scorePanel.add(p1Score);
+      p2Score = new JLabel("Player 2 Cards: " + score2);
+      scorePanel.add(p2Score);
+      directions = new JLabel("Press Player 1 to start the game "+
+                                 "and press the Player 1 card to continue to play");
+      scorePanel.add(directions);
+      gStatus = new JLabel("Game in Progress");
+      topPanel.add(gStatus);
+      
+      add(topPanel);
+      add(scorePanel);
+      add(gamePanel);
+   } 
+   
+   /**
+      ButtonListener works when player1 pushes
+      their card to pull up the next one
+   */   
+   private class ButtonListener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         boolean status = War.move();
+         JButton source = (JButton) (e.getSource());
+         source.setIcon(cardImage1());
+         p2.setIcon(cardImage2());
+         String score1 = Integer.toString(War.p1Cards());
+         String score2 = Integer.toString(War.p2Cards());
+         p1Score.setText("Player 1 Cards: " + score1);
+         p2Score.setText("Player 2 Cards: " + score2);
+         if (status == false)
+         {
+            int winner = War.checkWinner();
+            if (winner == 1)
+            {
+               gStatus.setText("Player 1 Wins!");
+               p1.setEnabled(false);
+            }   
+            else
+            {
+               gStatus.setText("Computer Wins!"); 
+               p1.setEnabled(false);
+            }   
+         }         
+
+      }
+   }
+   
+   /**
+      Adds card images to the
+      cards being player
+   */   
+   public ImageIcon cardImage1()
+   {  
+      Card c1 = (War.p1CardCheck());
+      ImageIcon i = new ImageIcon("aceh.jpg");
+      if(c1.getRank()== Card.ACE)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("aceh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("aced.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("acec.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("aces.jpg");
+      }
+      else if(c1.getRank()== 2)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("2h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("2d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("2c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("2s.jpg");
+      } 
+      else if(c1.getRank()== 3)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("3h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("3d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("3c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("3s.jpg");
+      }              
+      else if(c1.getRank()== 4)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("4h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("4d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("4c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("4s.jpg");
+      }
+     else if(c1.getRank()== 5)
+     {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("5h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("5d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("5c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("5s.jpg");
+     } 
+     else if(c1.getRank()== 6)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("6h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("6d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("6c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("6s.jpg");
+      } 
+      else if(c1.getRank()== 7)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("7h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("7d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("7c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("7s.jpg");
+      } 
+      else if(c1.getRank()== 8)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("8h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("8d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("8c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("8s.jpg");
+      }    
+      else if(c1.getRank()== 9)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("9h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("9d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("9c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("9s.jpg");
+      }
+      else if(c1.getRank()== 10)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("10h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("10d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("10c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("10s.jpg");
+      }  
+      else if(c1.getRank()== Card.JACK)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("jackh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("jackd.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("jackc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("jacks.jpg");
+      }
+      else if(c1.getRank()== Card.QUEEN)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("queenh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("queend.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("queenc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("queens.jpg");
+      } 
+      else if(c1.getRank()== Card.KING)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("kingh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("kingd.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("kingc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("kings.jpg");
+      }
+      return i;
+   }
+   
+   public ImageIcon cardImage2()
+   {  
+      Card c1 = (War.p2CardCheck());
+      ImageIcon i = new ImageIcon("aceh.jpg");
+      if(c1.getRank()== Card.ACE)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("aceh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("aced.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("acec.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("aces.jpg");
+      }
+      else if(c1.getRank()== 2)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("2h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("2d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("2c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("2s.jpg");
+      } 
+      else if(c1.getRank()== 3)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("3h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("3d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("3c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("3s.jpg");
+      }              
+      else if(c1.getRank()== 4)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("4h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("4d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("4c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("4s.jpg");
+      }
+     else if(c1.getRank()== 5)
+     {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("5h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("5d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("5c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("5s.jpg");
+     } 
+     else if(c1.getRank()== 6)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("6h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("6d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("6c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("6s.jpg");
+      } 
+      else if(c1.getRank()== 7)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("7h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("7d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("7c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("7s.jpg");
+      } 
+      else if(c1.getRank()== 8)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("8h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("8d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("8c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("8s.jpg");
+      }    
+      else if(c1.getRank()== 9)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("9h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("9d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("9c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("9s.jpg");
+      }
+      else if(c1.getRank()== 10)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("10h.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("10d.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("10c.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("10s.jpg");
+      }  
+      else if(c1.getRank()== Card.JACK)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("jackh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("jackd.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("jackc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("jacks.jpg");
+      }
+      else if(c1.getRank()== Card.QUEEN)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("queenh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("queend.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("queenc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("queens.jpg");
+      } 
+      else if(c1.getRank()== Card.KING)
+      {
+         if(c1.getSuit() == Card.HEARTS)
+            i = new ImageIcon("kingh.jpg");
+         else if(c1.getSuit() == Card.DIAMONDS)
+            i = new ImageIcon("kingd.jpg");
+         else if(c1.getSuit() == Card.CLUBS)
+            i = new ImageIcon("kingc.jpg");
+         else if(c1.getSuit() == Card.SPADES)
+            i = new ImageIcon("kings.jpg");
+      }
+      return i;
+   }              
+}   
