@@ -112,6 +112,10 @@ public class Card
       return status;
    }
    
+   /**
+      Method that checks which cards is greater
+      @param card the card being compared
+   */   
    public boolean greaterThan(Card card)
    {
       boolean status;
@@ -121,7 +125,10 @@ public class Card
          status = false;
       return status;
    }
-   
+   /**
+      Method that check which card is less
+      @param card the card being compared
+   */   
    public boolean lessThan(Card card)
    {
       boolean status;
