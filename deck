@@ -70,6 +70,12 @@ public class Deck
       Card c = deck.remove(0);  //  remove it (returns removed object)
       return c;
    }
+   
+   public Card checkCard()
+   {
+      Card c = deck.get(0);
+      return c;
+   }   
    /** 
      * Return current number of Cards in Deck
      * @return number of Cards in Deck
