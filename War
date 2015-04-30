@@ -1,0 +1,176 @@
+/**
+Sierra Cotnoir
+CS 110
+War Program that uses the
+Deck and Card classes to
+simulate a game of war.
+Game automatically plays through
+until one of the players runs out
+of cards
+*/
+import java.util.ArrayList;
+public class War
+{
+   private static Deck deck; //The main deck
+   private static Deck player1Deck; //The player1 hand
+   private static Deck player2Deck; //The player2 hand
+   
+   /**
+   War constructor creates the main
+   deck and player hands
+   */
+   public War()
+   {
+      deck = new Deck();
+      deck.shuffle();
+      player1Deck = new Deck(26);
+      player2Deck = new Deck(26);
+      while(!deck.isEmpty())
+      {
+         player1Deck.addCard(deck.dealCard());
+         player2Deck.addCard(deck.dealCard());
+      }  
+   }    
+   
+   /**
+   Move method simulates flipping a card
+   and calls another method to compare them.
+   It returns the status if there are still
+   cards remaining
+   @return status the status if some has won
+   */
+   public static boolean move()
+   {    
+      if(!player1Deck.isEmpty() && !player2Deck.isEmpty())
+      {
+         //compare cards
+         CardCompare(player1Deck, player2Deck); 
+         boolean status = true;
+         return status;
+      }
+      else
+      {  
+         boolean status = false;
+         return status;
+      }
+
+   }      
+   
+   /**
+      Method that checks which card is
+      going to be dealt for player1
+      @return the card on top
+   */
+   public static Card p1CardCheck()
+   {
+      return player1Deck.checkCard();
+   }
+   
+   /**
+      Method that checks which card is
+      going to be dealt for player2
+      @return the card on top
+   */   
+   public static Card p2CardCheck()
+   {
+      return player2Deck.checkCard();
+   }
+   
+   /**
+      Method that compares the two cards to
+      see which one is higher, then return
+      the cards to the hand of who had the
+      higher card
+      @param p1 the player1 Deck
+      @param p2 the player2 deck
+      
+   */        
+   public static int CardCompare(Deck p1, Deck p2)
+   {
+      //deal and display cards for both players
+      Card P1 = p1.dealCard();
+      Card P2 = p2.dealCard();
+
+      //if player1 is greater, add the 
+      //cards to their deck
+      if (P1.greaterThan(P2))
+      {
+         player1Deck.addCard(P1);
+         player1Deck.addCard(P2);
+      }  
+      //if player1 is less, add the cards
+      //to player2's deck
+      else if(P1.lessThan(P2))
+      {
+         player2Deck.addCard(P1);
+         player2Deck.addCard(P2);
+      }  
+
+      //if player1 equals player2, draw two
+      //new cards and compare them, then give
+      //all of the drawn cards to the winner
+      if(P1.equals(P2))
+      {
+         Card c1 = P1;
+         Card c2 = P2;
+         P1 = player1Deck.dealCard();
+         P2 = player2Deck.dealCard();
+         if(P1.greaterThan(P2))
+         {
+            player1Deck.addCard(P1);
+            player1Deck.addCard(P2);
+            player1Deck.addCard(c1);
+            player1Deck.addCard(c2);
+         }
+         else
+         {
+            player2Deck.addCard(P1);
+            player2Deck.addCard(P2);
+            player2Deck.addCard(c1);
+            player2Deck.addCard(c2);
+         }      
+      }
+      //shuffle both decks to ensure the
+      //game stays random
+      player1Deck.shuffle();
+      player2Deck.shuffle();
+      //display who is in the lead by showing
+      //how many cards are left for each player
+      return player1Deck.cardsRemaining();
+   }   
+   
+   /**
+      Method that checks how many
+      cards are left in player1 deck
+      @return the cards in player1 deck
+   */   
+   public static int p1Cards()
+   {
+      return player1Deck.cardsRemaining();
+   }
+   
+   /**
+      Method that checks how many cards
+      are left in player2 deck
+      @return the cards in player2 deck
+   */   
+   public static int p2Cards()
+   {
+      return player2Deck.cardsRemaining();
+   } 
+   
+   /**
+      Method to check who has won
+      @return winner the player who won
+   */   
+   public static int checkWinner()
+   {
+      int winner;
+      if(player1Deck.isEmpty())
+         winner = 2;
+      else
+         winner = 1;
+      return winner;
+   }         
+   
+}            
